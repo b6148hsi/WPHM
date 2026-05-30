@@ -1,28 +1,3 @@
-# Passive Wi-Fi Radio Wave Heatmap Sniffer
-
-This project uses an ESP32-S3 microcontroller running in promiscuous mode to passively intercept and map 2.4GHz radio frequency waves (Wi-Fi beacon signals and device probes) without connecting to any networks. The logged data is streamed via serial connection to a Python environment to compute a continuous signal spatial heatmap.
-
-## Installation & Setup
-
-1. **Firmware Deployment:**
-   * Open `firmware/firmware.ino` inside the Arduino IDE.
-   * Select your target **ESP32-S3** board profile.
-   * Flash the compilation code directly onto your microcontroller.
-
-2. **Python Environment Setup:**
-   * Install dependencies via terminal execution:
-     ```bash
-     pip install -r requirements.txt
-     ```
-
-3. **Execution Execution:**
-   * Look up your microcontroller's assigned serial port address and substitute it inside the `SERIAL_PORT` variable configuration line inside `app/collector.py`.
-   * Start your monitoring capture:
-     ```bash
-
-
-<div align="center">
-
 # 📡 PASSIVE Wi-Fi RF HEATMAP & SIGNAL INTELLIGENCE
 
 **A 3D spatial visualization and intrusion detection system for 802.11 networks.**
@@ -76,27 +51,23 @@ The UI is built with a custom dark-industrial theme and runs at 300ms intervals.
 
 ---
 
-## ⚙️ Architecture
+## Installation & Setup
 
-<details>
-<summary><b>Click to view Data Pipeline Diagram</b></summary>
+1. **Firmware Deployment:**
+   * Open `firmware/firmware.ino` inside the Arduino IDE.
+   * Select your target **ESP32-S3** board profile.
+   * Flash the compilation code directly onto your microcontroller.
 
-```mermaid
-graph TD
-    A[ESP32 Promiscuous Mode] -->|Raw CSV over Serial| B(reader.py)
-    B -->|Thread-safe Queue| C(processor.py)
-    
-    subgraph Signal Processing Engine
-    C -->|MAC Check| D[FilterEngine]
-    C -->|Math/Smoothing| E{rf_core / Scipy}
-    end
-    
-    E --> F[visualiser.py]
-    D --> G[logger.py]
-    
-    C -->|Triggers| H(notifier.py)
-    H -->|HTTP POST| I((ntfy.sh Server))
-    I -.->|Push Alert| J[Mobile Device]
-     python app/collector.py
+2. **Python Environment Setup:**
+   * Install dependencies via terminal execution:
+     ```bash
+     pip install -r requirements.txt
      ```
-   * Walk smoothly through your study space with the rig running to gather signal density measurements.
+
+3. **Execution Execution:**
+   * Look up your microcontroller's assigned serial port address and substitute it inside the `SERIAL_PORT` variable configuration line inside `app/collector.py`.
+   * Start your monitoring capture:
+     ```bash
+
+
+<div align="center">study space with the rig running to gather signal density measurements.
